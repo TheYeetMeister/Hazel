@@ -1,0 +1,3 @@
+﻿  application.cpp
+C:\dev\Hazel\Sandbox\src\application.cpp(8,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Sandbox.vcxproj -> C:\dev\Hazel\bin\Debug-x64\Sandbox\Sandbox.exe

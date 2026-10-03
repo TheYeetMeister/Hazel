@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="Sandbox/Sandbox.vcxproj" Id="556d3e17-abf2-425e-a628-aad19f004ca0" />
+  <Project Path="Hazel/Hazel.vcxproj" Id="b5f9581a-2d04-4a3a-9a7d-f8826cc7e684" />
+</Solution>

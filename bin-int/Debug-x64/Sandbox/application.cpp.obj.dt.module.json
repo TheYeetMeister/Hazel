@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\dev\\Hazel\\bin-int\\Debug-x64\\Sandbox\\application.obj",
+            "outputs": [
+                "C:\\dev\\Hazel\\bin-int\\Debug-x64\\Sandbox\\application.cpp.obj.dt.module.json",
+                "C:\\dev\\Hazel\\bin-int\\Debug-x64\\Sandbox\\application.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
