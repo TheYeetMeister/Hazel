@@ -1,0 +1,4 @@
+#secrets and compiled data
+.vs/
+bin/
+bin-int/
