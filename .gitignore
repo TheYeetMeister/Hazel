@@ -1,4 +1,7 @@
-#secrets and compiled data
+#directories
 .vs/
 bin/
 bin-int/
+
+#files
+*.user
