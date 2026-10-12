@@ -1,0 +1,5 @@
+cmake -S . -B bin-int; cmake --build bin-int --config Debug
+
+cmake -S . -B bin-int; cmake --build bin-int --config Release
+
+cmake -S . -B bin-int; cmake --build bin-int --config Dist
