@@ -4,6 +4,17 @@
 
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
+
+// --------------------------------------------------------------------------------
+// Section added since spdlog in later versions reformats friend operators and ostream
+namespace Hazel {
+	class Event;
+}
+
+template <typename T>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<Hazel::Event, T>, char>> : fmt::ostream_formatter {};
+// --------------------------------------------------------------------------------
 
 namespace Hazel {
 	class HAZEL_API Log

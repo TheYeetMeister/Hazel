@@ -71,8 +71,15 @@ set_target_properties(Hazel PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin/${OUTPUT_DIR}/${ENGINE_PROJECT_NAME}"
 )
 
+# Include base folder for referencing
+target_include_directories(
+	Hazel PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src>
+)
+
 # Link spdlog library link
-target_link_libraries(Hazel PUBLIC spdlog::spdlog)
+target_link_libraries(
+	Hazel PUBLIC spdlog::spdlog
+)
 
 # Version config mapping
 target_compile_definitions(Hazel PRIVATE
