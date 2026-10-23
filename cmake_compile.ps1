@@ -11,7 +11,7 @@ $Distribution = "Dist"
 function Run-CMakeBuild([string]$Config) {
     Write-Host "Executing $Config..." -ForegroundColor Cyan
     # Run configuration, then build if configuration succeeds
-    cmake -S . -B bin-int
+    cmake -S . -B bin-int -G "Visual Studio 18 2026" -A x64
     if ($LASTEXITCODE -eq 0) {
         cmake --build bin-int --config $Config
     }

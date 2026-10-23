@@ -7,6 +7,8 @@ include(cmake/CPM.cmake)
 # ==========================
 project(Hazel LANGUAGES CXX)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # Global configuration defaults
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -49,15 +51,20 @@ CPMAddPackage(
 	NAME spdlog
 	SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PROJECT_NAME}/vendor/spdlog"
 )
+set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
 
 # Set up
-file(GLOB_RECURSE HAZEL_SOURCES
+file(GLOB_RECURSE HAZEL_SOURCES CONFIGURE_DEPENDS
 	"${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PROJECT_NAME}/src/*.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PROJECT_NAME}/src/*.cpp"
 )
 
 # Create Hazel shared library
 add_library(Hazel SHARED ${HAZEL_SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src" PREFIX "src" FILES ${HAZEL_SOURCES})
+
+# Precompiled Headers
+target_precompile_headers(Hazel PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src/hzpch.h")
 
 # Optimize/symbols for the different version releases
 target_compile_options(Hazel PRIVATE
@@ -94,11 +101,12 @@ target_compile_definitions(Hazel PRIVATE
 #	sandbox application set up
 # =================================
 set(SANDBOX_NAME "Sandbox")
-file(GLOB_RECURSE SANDBOX_SOURCES
+file(GLOB_RECURSE SANDBOX_SOURCES CONFIGURE_DEPENDS
 	"${CMAKE_CURRENT_SOURCE_DIR}/${SANDBOX_NAME}/src/*.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/${SANDBOX_NAME}/src/*.cpp"
 )
 add_executable(Sandbox ${SANDBOX_SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/Sandbox/src" PREFIX "src" FILES ${SANDBOX_SOURCES})
 
 # Optimize/symbols for version releases
 target_compile_options(Sandbox PRIVATE
@@ -141,3 +149,4 @@ add_custom_command(TARGET Sandbox POST_BUILD
         "$<TARGET_FILE_DIR:Sandbox>/"
     COMMENT "Copying Hazel dynamic library to Sandbox executable folder..."
 )
+
