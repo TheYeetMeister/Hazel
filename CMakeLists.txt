@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 4.0 FATAL_ERROR)
 
 include(cmake/CPM.cmake)
 
+
+# For shared library + static dependency macos/linux (if I decide to add them)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # ==========================
 #	Workspace/root setup
 # ==========================
@@ -53,6 +57,17 @@ CPMAddPackage(
 )
 set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
 
+CPMAddPackage(
+	NAME glfw
+	SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PROJECT_NAME}/vendor/GLFW"
+	OPTIONS
+		"GLFW_BUILD_EXAMPLES OFF"
+		"GLFW_BUILD_TESTS OFF"
+		"GLFW_BUILD_DOCS OFF"
+		"GLFW_INSTALL OFF"
+)
+set_target_properties(glfw PROPERTIES FOLDER "Dependencies")
+
 # Set up
 file(GLOB_RECURSE HAZEL_SOURCES CONFIGURE_DEPENDS
 	"${CMAKE_CURRENT_SOURCE_DIR}/${ENGINE_PROJECT_NAME}/src/*.h"
@@ -83,9 +98,15 @@ target_include_directories(
 	Hazel PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src>
 )
 
+
+# Installs opengl directly to mess with window data
+find_package(OpenGL REQUIRED)
+
 # Link spdlog library link
-target_link_libraries(
-	Hazel PUBLIC spdlog::spdlog
+target_link_libraries(Hazel PUBLIC 
+	spdlog::spdlog
+	glfw
+	OpenGL::GL
 )
 
 # Version config mapping
